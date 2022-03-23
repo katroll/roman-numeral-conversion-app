@@ -67,10 +67,10 @@ function Calculator() {
                 <button type="submit">Calculate</button>
             </form>
             {calculation.roman ? (
-                <h3>{`${input.value1} ${input.operator} ${input.value2} = ${calculation.roman} or ${calculation.arabic}`}</h3>
+                <h3>{input.value1} {input.operator} {input.value2} = {calculation.roman} or {calculation.arabic}</h3>
             ) : null}
             {errors ? (
-                <h3>{errors}</h3>
+                <h3 className="error-message">{errors}</h3>
             ) : null}
         </div>
         

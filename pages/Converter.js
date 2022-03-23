@@ -2,7 +2,8 @@ import { useState } from "react";
 
 function Converter() {
     const [input, setInput] = useState("");
-    const [conversion, setConversion] = useState("")
+    const [conversion, setConversion] = useState("");
+    const [errors, setErrors] = useState("");
 
     function handleConversion(e) {
         e.preventDefault();
@@ -12,8 +13,16 @@ function Converter() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({num: input})
         })
-        .then(res => res.json())
-        .then(data => setConversion(data.answer));
+        .then((resp) => {
+            if (resp.ok) {
+              resp.json().then(data => {
+                  setConversion(data.answer);
+                  setErrors("");
+              })
+            } else {
+              resp.json().then(errors => setErrors(errors.error))
+            }
+          });
     }
 
     function handleInputChange(e) {
@@ -33,7 +42,10 @@ function Converter() {
                 <button type="submit">Convert</button>
             </form>
             {conversion ? (
-                <h1>{conversion}</h1>
+                <h3>{input} = {conversion}</h3>
+            ) : null}
+            {errors ? (
+                <h3 className="error-message">{errors}</h3>
             ) : null}
         </div>
         

@@ -25,11 +25,10 @@ export default function arabicToRoman(number) {
             }
         }
 
-        console.log(level.unit, number);
 
         if(level.unit != 1) {
           const unitHalves = Math.floor(number / (level.unit / 2));
-          if(unitHalves && Math.floor(number - (level.unit / 2) < 4)) {
+          if(unitHalves && Math.floor((number - (level.unit / 2)) / (level.unit / 10)  < 4)) {
               roman = roman.concat(`${level.symbolHalf}`.repeat(unitHalves));
               number -= (level.unit / 2) * unitHalves;
           }
